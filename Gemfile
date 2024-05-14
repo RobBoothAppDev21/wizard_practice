@@ -45,6 +45,7 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "bootsnap", require: false
 
 gem "devise"
+gem "ruby-openai"
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
@@ -55,6 +56,7 @@ group :development, :test do
   gem "capybara"
   gem "factory_bot_rails"
   gem "faker"
+  gem "letter_opener"
   gem "rspec-rails"
   gem "webdrivers"
 end

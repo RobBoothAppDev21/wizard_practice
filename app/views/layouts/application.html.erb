@@ -12,9 +12,11 @@
   </head>
 
   <body>
-    <main class="container mx-auto max-w-7xl">
+    <main class="mx-auto">
       <%= render "layouts/navbar" %>
+      <%= render "layouts/flash" %>
       <%= yield %>
+      <%= render "layouts/footer" %>
     </main>
   </body>
 </html>
