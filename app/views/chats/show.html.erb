@@ -1,0 +1,29 @@
+<!-- Content -->
+<div class="relative">
+  <div class="max-w-4xl px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+  
+    <h1><%= @chat.messages&.first&.content&.truncate(100) %></h2>
+
+    <div class="max-w-[85rem] py-2 mx-auto flex flex-col overflow-x-auto">
+      <!-- Card -->
+      <div class="min-w-full inline-block align-middle oveflow-y-auto">
+        <%= turbo_stream_from "messages_#{@chat.id}" %>
+        <div class="bg-white shadow-sm">
+          <ul class="mt-4 space-y-5" id="messages_<%= @chat.id %>">
+            <% @chat.messages.each do |message| %>
+              <%= render partial: "messages/message", locals: { message: message } %>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+      <!-- End Card -->
+    </div>
+
+    <%= form_with url: "/messages", data: { controller: "message-form", action: "turbo:submit-end->message-form#reset" }  do |f| %>
+      <%= f.text_field :chat_id, value: @chat.id, hidden: true %>
+      <%= f.text_area "message[content]", class: "py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600", rows: "2" %>
+      <%= f.submit "Send", class: "mt-2 py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none" %>
+    <% end %>
+  </div>
+</div>
+<!-- End Content -->
